@@ -1,11 +1,18 @@
-const http = require('http');
+const express = require('express');
+const dotenv = require('dotenv');
 
-const server = http.createServer((req, res) => {
-  res.end();
+// load env vars
+dotenv.config({path: './config/config.env'});
+
+const app = express();
+
+app.get('/', (req, res) => {
+  res.send('Hello from express');
 });
 
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
-server.listen(PORT, () => {
-  console.log(`Server listen on port ${PORT}`);
-});
+app.listen(
+  PORT,
+  console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`)
+);
