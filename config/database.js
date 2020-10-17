@@ -8,7 +8,9 @@ const connectDB = async () => {
     useUnifiedTopology: true,
   });
 
-  console.log(`Connection established: ${conn.connection.host}`);
+  console.log(
+    `Connection established: ${conn.connection.host}`.cyan.underline.bold
+  );
 };
 
 module.exports = connectDB;
