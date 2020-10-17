@@ -1,4 +1,6 @@
 const ErrorResponse = require('../utils/errorResponse');
+//  in here we use express default error handler
+// @url: https://expressjs.com/en/guide/error-handling.html
 const errorHandler = (err, req, res, next) => {
   let error = {...err};
 

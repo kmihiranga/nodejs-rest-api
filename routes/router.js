@@ -9,7 +9,7 @@ const {
 } = require('../controllers/bootcamp.js');
 const router = express.Router();
 
-// get all urls for same
+// get all urls for same parameters
 router.route('/').get(getBootcamps).post(createBootcamp);
 
 router

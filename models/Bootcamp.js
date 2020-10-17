@@ -1,5 +1,6 @@
 const {text} = require('express');
 const mongoose = require('mongoose');
+const {default: slugify} = require('slugify');
 const BootcampSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -100,6 +101,15 @@ const BootcampSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+});
+
+// using express middleware and configure slug value in document object
+// @url: https://mongoosejs.com/docs/middleware.html
+BootcampSchema.pre('save', function (next) {
+  this.slug = slugify(this.name, {
+    lower: true,
+  });
+  next();
 });
 
 module.exports = mongoose.model('Bootcamp', BootcampSchema);
