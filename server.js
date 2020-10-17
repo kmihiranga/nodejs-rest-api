@@ -3,8 +3,9 @@ const dotenv = require('dotenv');
 const bodyParser = require('body-parser');
 // const logger = require('./middleware/logger.js');
 const morgan = require('morgan');
-const connectDB = require('./config/database.js');
 const colors = require('colors');
+const errorHandler = require('./middleware/errors.js');
+const connectDB = require('./config/database.js');
 
 // load env vars
 dotenv.config({path: './config/config.env'});
@@ -17,7 +18,7 @@ connectDB();
 
 const app = express();
 
-// app.use(bodyParser.json());
+app.use(bodyParser.json());
 // use middleware we create
 // app.use(logger);
 
@@ -31,6 +32,10 @@ if (process.env.NODE_ENV === 'development') {
 
 // mount routes
 app.use('/api/v1/bootcamps', bootcamps);
+
+// error middleware
+// middlewares work in a linear order so we use this after mount the controller
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 
